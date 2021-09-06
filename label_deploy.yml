@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myweb-deploy
+spec:
+  strategy:
+    type: Recreate
+  replicas: 3
+  selector:
+    matchLabels:
+      env: prod
+    matchExpressions:
+      - {  key: team, operator: In, values: [ team1, team2] }
+      - {  key: tier, operator: In, values: [ frontend ] }
+  template:
+    metadata:
+      name: "webpod1"
+      labels:
+        env: prod
+        team: team2
+        tier: frontend
+        region: IN
+    spec:
+      containers:
+      - name: "webc1"
+        image: "iamhimy/backend:lwv2"

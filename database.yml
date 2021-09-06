@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "mydb"
+  labels:
+    app: mydb
+spec:
+  containers:
+  - name: "mydb"
+    image: "mysql:5.7"
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: pass
+    - name: MYSQL_USER
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: user
+    - name: MYSQL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: mysecret
+          key: upass
